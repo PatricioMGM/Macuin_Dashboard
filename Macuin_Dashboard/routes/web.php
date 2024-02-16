@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Middleware\CheckSession;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,14 +15,21 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', function () { return view('login'); })->name('loginview');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
 
-Route::get('/', function () {
-    return view('login');
-});
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware(CheckSession::class);
+
+Route::get('/inicio', function () {
+    return view('cliente_inicio');
+})->name('inicio_cliente')->middleware(CheckSession::class);
+
 Route::get('/registrarTicket', function () {
-    return view('welcome');
-});
+    // Aquí puedes agregar la lógica para registrar un ticket
+})->name('registrar_ticket')->middleware(CheckSession::class);
+
 Route::get('/usuario', function () {
-    return view('perfil');
+    return view('perfil')->middleware(CheckSession::class);
 });
 
+Route::resource('Cliente', ClienteController::class)->middleware(CheckSession::class);

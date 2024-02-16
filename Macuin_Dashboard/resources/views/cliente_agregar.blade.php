@@ -1,22 +1,17 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.template')
+@section('title', 'Registrar Ticket')
 
-<head>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
+@section('style')
+        
 
         .form-container {
             background-color: #ffffff;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 20px;
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
             width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .form-container h1 {
@@ -44,6 +39,17 @@
             background-color: rgb(0, 140, 255);
             color: white;
             cursor: pointer;
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-container textarea {
+            width: 100%;
+            height: 100px;
+            max-height: 100px;
+            min-height: 100px;
+            resizr: none;
         }
 
         .form-container input[type="submit"]:hover {
@@ -55,16 +61,15 @@
         form,
         select,
         textarea {
-            border-radius: 30px;
+            border-radius: 15px !important;
         }
+@endsection
 
-    </style>
-</head>
-
-<body>
+@section('content')
     <div class="form-container">
         <h1>Registrar Ticket</h1>
-        <form action="/ruta_a_tu_controlador" method="post">
+        <form action="{{ route('Cliente.store') }}" method="post">
+            @csrf
             <label for="author_id">Usuario</label><br>
             <input type="number" id="author_id" name="author_id" readonly placeholder="Nombre del usuario"><br>
             <label for="departamento_id">Departamento</label><br>
@@ -79,7 +84,9 @@
                 <option value="otro">otro</option>
             </select><br>
             <label for="detalles">Detalles:</label><br>
-            <textarea id="detalles" name="detalles"></textarea><br>
+            <div style="text-align: center;">
+                <textarea id="detalles" name="detalles"></textarea>
+            </div><br>
             {{-- <label for="estado">Estado:</label><br>
             <select id="estado" name="estado">
                 <option value="completado">Completado</option>
@@ -88,9 +95,9 @@
                 <option value="nunca_solucionado">Nunca Solucionado</option>
                 <option value="cancelado_por_cliente">Cancelado por Cliente</option>
             </select><br> --}}
-            <input class="boton" type="submit" value="Enviar">
+            <div style="text-align: center;">
+                <input class="button" type="submit" value="Enviar">
+            </div>
         </form>
     </div>
-</body>
-
-</html>
+@endsection
